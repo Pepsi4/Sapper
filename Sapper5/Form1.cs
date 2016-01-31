@@ -1,0 +1,285 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using System.Collections;
+namespace Sapper5
+{
+   public partial class Form1 : Form
+   {
+      public static int siz = 32, field = 36;
+      public int x = 90, y = 0, num = 0, bom = 0;
+      ArrayList a = new ArrayList();
+      ArrayList b = new ArrayList();
+      ArrayList c = new ArrayList();
+      ArrayList d = new ArrayList();
+      Point po = new Point();
+      PictureBox pb = new PictureBox();
+      public Form1()
+      {
+         InitializeComponent();
+      }
+
+      private void button1_Click(object sender, EventArgs e)
+      {
+
+      }
+
+      private void picturebox1_Click(object sender, EventArgs e)
+      {
+         bom = 0;
+         pb = sender as PictureBox;
+         for (int p = 0; p < field; p++)
+         {
+            po = new Point((int)b[p], (int)a[p]);
+            if (pb.Location == po)
+            {
+
+               if ((int)c[p] == 1) // NAZATIE NA BOMBU  & c - bombu, a - y, b -x;
+               {
+                  MessageBox.Show("Game Over");
+                  for (int u = 0; u < field; u++)
+                  {
+                     if ((int)c[u] == 1) // POKAZ VSEH BOMB PRI NAZATII NA BOMBU
+                     {
+                        PictureBox pe = (PictureBox)d[u];
+                        pe.BackgroundImage = Properties.Resources.bomb;
+                     }
+                  }
+               }
+               else
+               {
+                   if (p >= 6 && p % 6 == 0 && p < 30)
+                  { //verh seredina
+
+                     right(p);
+                     down(p);
+                     left(p);
+                     leftdown(p);
+                     rightdown(p);
+                     swit();
+                  }
+                  else if (p == 0)
+                  { //levo verh krai
+                     down(p);
+                     right(p);
+                     rightdown(p);
+                     swit();
+                  }
+                  else if (p == 30) //prav verh
+                  {
+                     down(p);
+                     left(p);
+                     leftdown(p);
+                     swit();
+                  }
+                  else if (p >= 1 && p <= 4) // lev seredina
+                  {
+                     right(p);
+                     up(p);
+                     down(p);
+                     rightup(p);
+                     rightdown(p);
+                     swit();
+                  }
+                  else if (p == 5) // lev niz
+                  {
+                     up(p);
+                     right(p);
+                     rightup(p);
+                     swit();
+                  }
+                  else if (p == 35) //prav niz
+                  {
+                     left(p);
+                     up(p);
+                     leftup(p);
+                     swit();
+                  }
+                  else if (p % 6 == 5 && p != 5 && p != 35) //niz seredina
+                  {
+                     right(p);
+                     up(p);
+                     rightup(p);
+                     leftup(p);
+                     left(p);
+                     swit();
+                  }
+                  else if (p <= 34 && p >= 31)
+                  {
+                     left(p);
+                     leftup(p);
+                     up(p);
+                     leftdown(p);
+                     down(p);
+                     swit();
+                  }
+                  else
+                  {
+                     left(p);
+                     leftup(p);
+                     right(p);
+                     rightup(p);
+                     rightdown(p);
+                     up(p);
+                     leftdown(p);
+                     down(p);
+                     swit();
+                  }
+
+               }
+               //MessageBox.Show(c[p].ToString() + "bomb");
+               //MessageBox.Show(p.ToString());
+            }
+         }
+      }
+
+      public void butt(bool test = false) //STROIKA 6x6
+      {
+         int r = System.DateTime.Now.Millisecond % 4;
+         PictureBox bu = new PictureBox();
+         if (r == 1 && test == true) //BOM BOM
+         {
+
+            bu.BackgroundImage = Properties.Resources.bomb;
+         }
+         else
+         {
+            bu.BackgroundImage = Properties.Resources._0;
+         }
+         bu.Size = new Size(32, 32);
+         bu.Location = new Point(x, y);
+         b.Add(x);
+         a.Add(y);
+         c.Add(r);
+         d.Add(bu);
+         this.Controls.Add(bu);
+         bu.Click += picturebox1_Click;
+
+
+      }
+
+      private void Form1_Load(object sender, EventArgs e)
+      {
+         load();
+      }
+
+      // 8: лево, право, вверх, вниз, левверх, левниз, правверх, правниз
+
+      public void left(int o)
+      {
+         if ((int)c[o - 6] == 1)
+         {
+            bom++;
+         }
+      }
+
+      public void right(int o)
+      {
+         if ((int)c[o + 6] == 1)
+         {
+            bom++;
+         }
+      }
+
+      public void up(int o)
+      {
+         if ((int)c[o - 1] == 1)
+         {
+            bom++;
+         }
+      }
+
+      public void down(int o)
+      {
+         if ((int)c[o + 1] == 1)
+         {
+            bom++;
+         }
+      }
+
+      public void leftdown(int o)
+      {
+         if ((int)c[o - 5] == 1)
+         {
+            bom++;
+         }
+      }
+
+      public void leftup(int o)
+      {
+         if ((int)c[o - 7] == 1)
+         {
+            bom++;
+         }
+      }
+
+      public void rightup(int o)
+      {
+         if ((int)c[o + 5] == 1)
+         {
+            bom++;
+         }
+      }
+
+      public void rightdown(int o)
+      {
+         if ((int)c[o + 7] == 1)
+         {
+            bom++;
+         }
+      }
+
+      public void swit()
+      {
+         switch (bom)
+         {
+            case 0:
+               pb.BackgroundImage = Properties.Resources._null;
+               break;
+            case 1:
+               pb.BackgroundImage = Properties.Resources._1;
+               break;
+            case 2:
+               pb.BackgroundImage = Properties.Resources._2;
+               break;
+            case 3:
+               pb.BackgroundImage = Properties.Resources._3;
+               break;
+         }
+      } //Tam znacheni9 bg
+
+      public void load()
+      {
+         for (int i = 0; i < field; i++)
+         {
+
+            if (y != 6 * siz)
+            {
+               y += siz;
+            }
+            else
+            {
+               y = siz;
+               x += siz;
+            }
+            butt(false);
+         }
+
+         for (int t = 0; t < field; t++)
+         {
+            if ((int)c[t] == 1)
+            {
+               num++;
+               textBox1.Text = num.ToString();
+            }
+         }
+
+      }
+   }
+}
+
