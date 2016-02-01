@@ -18,6 +18,8 @@ namespace Sapper5
       ArrayList c = new ArrayList();   // bomb
       ArrayList d = new ArrayList();   //pict box (bu)
       ArrayList e = new ArrayList();   //
+      bool[] f = new bool[36];
+      int[] flg = new int[36];
       Point po = new Point();
       PictureBox pb = new PictureBox();
       PictureBox pb2 = new PictureBox();
@@ -200,6 +202,7 @@ namespace Sapper5
                   }
                   else
                   {
+
                      if (p >= 6 && p % 6 == 0 && p < 30)
                      { //verh seredina
 
@@ -264,6 +267,7 @@ namespace Sapper5
                         leftdown(p);
                         down(p);
                         swit();
+                        
                      }
                      else
                      {
@@ -278,6 +282,9 @@ namespace Sapper5
                         swit();
                      }
 
+
+
+
                   }
                   //MessageBox.Show(c[p].ToString() + "bomb");
                   //MessageBox.Show(p.ToString());
@@ -286,6 +293,37 @@ namespace Sapper5
          }
          else if (e.Button == MouseButtons.Right)  //Pravo
          {
+            for (int i = 0; i < field; i++)
+            {
+               pb2 = sender as PictureBox;
+               Point po2 = new Point((int)b[i], (int)a[i]);
+               if (po2 == pb2.Location)
+               {
+                  if((int)flg[i] % 2 == 0)
+                  {
+                     f[i] = false;
+                     pb2.BackgroundImage = Properties.Resources.flag;
+                  }
+                  if((int)flg[i] % 2 == 1)
+                  {
+                     f[i] = true;
+                     pb2.BackgroundImage = Properties.Resources._0;
+                  }
+                  flg[i] = flg[i] + 1;
+
+
+
+
+
+
+               }
+            }
+
+            
+               
+            
+
+
 
          }
 
@@ -317,24 +355,13 @@ namespace Sapper5
 
       public void swit()
       {
-         //for (int i = 0; i < field; i++)
-         //{
-         //   //pb2 = sender as PictureBox;
-         //   left(i);
-         //   leftup(i);
-         //   right(i);
-         //   rightup(i);
-         //   rightdown(i);
-         //   up(i);
-         //   leftdown(i);
-         //   down(i);
-         //}
+         
 
          if (bom == 0)
          {
             for (int i = 0; i < field; i++)
             {
-
+               
             }
          }
 
