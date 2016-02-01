@@ -12,7 +12,7 @@ namespace Sapper5
    public partial class game : Form
    {
       public static int siz = 32, field = 36;
-      public int x = 90, y = 0, r = 0, bom = 0, num = 0;
+      public int x = 90, y = 0, r = 0, bom = 0, num = 0, bmcount = 0;
       ArrayList a = new ArrayList();   //y
       ArrayList b = new ArrayList();   //x
       ArrayList c = new ArrayList();   // bomb
@@ -176,6 +176,18 @@ namespace Sapper5
          }
       }
 
+      private void button1_Click(object sender, EventArgs e)
+      {
+         if(num == bmcount)
+         {
+            MessageBox.Show("U win");
+         }
+         else
+         {
+            MessageBox.Show("U lost");
+         }
+      }
+
       private void button1_MouseDown(object sender, MouseEventArgs e)
       {
          if (e.Button == MouseButtons.Left)  //levo
@@ -281,10 +293,6 @@ namespace Sapper5
                         down(p);
                         swit();
                      }
-
-
-
-
                   }
                   //MessageBox.Show(c[p].ToString() + "bomb");
                   //MessageBox.Show(p.ToString());
@@ -299,32 +307,29 @@ namespace Sapper5
                Point po2 = new Point((int)b[i], (int)a[i]);
                if (po2 == pb2.Location)
                {
-                  if((int)flg[i] % 2 == 0)
+                  if((int)flg[i] % 2 == 0) // stavim flag
                   {
                      f[i] = false;
                      pb2.BackgroundImage = Properties.Resources.flag;
+                     if((int)c[i] == 1)
+                     {
+                        bmcount++;
+                     }
                   }
-                  if((int)flg[i] % 2 == 1)
+                  if((int)flg[i] % 2 == 1) // ubiraem flag
                   {
                      f[i] = true;
                      pb2.BackgroundImage = Properties.Resources._0;
+                     if ((int)c[i] == 1)
+                     {
+                        bmcount--;
+                     }
                   }
                   flg[i] = flg[i] + 1;
-
-
-
-
-
-
+                  
                }
             }
-
             
-               
-            
-
-
-
          }
 
       }
@@ -355,16 +360,6 @@ namespace Sapper5
 
       public void swit()
       {
-         
-
-         if (bom == 0)
-         {
-            for (int i = 0; i < field; i++)
-            {
-               
-            }
-         }
-
          switch (bom)
          {
             case 0:
