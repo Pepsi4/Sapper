@@ -12,11 +12,12 @@ namespace Sapper5
    public partial class Form1 : Form
    {
       public static int siz = 32, field = 36;
-      public int x = 90, y = 0, num = 0, bom = 0;
+      public int x = 90, y = 0, r = 0, bom = 0, num = 0;
       ArrayList a = new ArrayList();
       ArrayList b = new ArrayList();
       ArrayList c = new ArrayList();
       ArrayList d = new ArrayList();
+      ArrayList e = new ArrayList();
       Point po = new Point();
       PictureBox pb = new PictureBox();
       public Form1()
@@ -138,13 +139,90 @@ namespace Sapper5
          }
       }
 
-      public void butt(bool test = false) //STROIKA 6x6
+
+      bool rand = true;
+      bool rand2 = true;
+      bool rand3 = true;
+      bool rand4 = true;
+      bool rand5 = true;
+      bool rand6 = true;
+
+      public void butt(bool test = false, int t = 0) 
       {
-         int r = System.DateTime.Now.Millisecond % 4;
+         
+         r = 0;
+         if (t >= 0 && t < 6)
+         {
+            if(rand == true)
+            {
+               r = System.DateTime.Now.Millisecond % 6;
+            }
+            if (r == 1)
+            {
+               rand = false;
+            }
+         }
+         if (t >= 6 && t < 12)
+         {
+            if (rand2 == true)
+            {
+               r = System.DateTime.Now.Millisecond % 6;
+            }
+            if (r == 1)
+            {
+               rand2 = false;
+            }
+         }
+
+         if (t >= 12 && t < 18)
+         {
+            if (rand3 == true)
+            {
+               r = System.DateTime.Now.Millisecond % 6;
+            }
+            if (r == 1)
+            {
+               rand3 = false;
+            }
+         }
+         if (t >= 18 && t < 24)
+         {
+            if (rand4 == true)
+            {
+               r = System.DateTime.Now.Millisecond % 6;
+            }
+            if (r == 1)
+            {
+               rand4 = false;
+            }
+         }
+         if (t >= 24 && t < 30)
+         {
+            if (rand5 == true)
+            {
+               r = System.DateTime.Now.Millisecond % 6;
+            }
+            if (r == 1)
+            {
+               rand5 = false;
+            }
+         }
+         if (t >= 30 && t < 36)
+         {
+            if (rand6 == true)
+            {
+               r = System.DateTime.Now.Millisecond % 6;
+            }
+            if (r == 1)
+            {
+               rand6 = false;
+            }
+         }
+
+
          PictureBox bu = new PictureBox();
          if (r == 1 && test == true) //BOM BOM
          {
-
             bu.BackgroundImage = Properties.Resources.bomb;
          }
          else
@@ -267,7 +345,7 @@ namespace Sapper5
                y = siz;
                x += siz;
             }
-            butt(false);
+            butt(false, i);
          }
 
          for (int t = 0; t < field; t++)
