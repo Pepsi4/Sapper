@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Collections;
 namespace Sapper5
 {
-   public partial class Form1 : Form
+   public partial class game : Form
    {
       public static int siz = 32, field = 36;
       public int x = 90, y = 0, r = 0, bom = 0, num = 0;
@@ -20,7 +20,7 @@ namespace Sapper5
       ArrayList e = new ArrayList();
       Point po = new Point();
       PictureBox pb = new PictureBox();
-      public Form1()
+      public game()
       {
          InitializeComponent();
       }
