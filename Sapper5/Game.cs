@@ -178,13 +178,13 @@ namespace Sapper5
 
       private void button1_Click(object sender, EventArgs e)
       {
-         if(num == bmcount)
+         if (num == bmcount)
          {
             MessageBox.Show("U win");
          }
          else
          {
-            MessageBox.Show("U lost");
+            MessageBox.Show("U lose");
          }
       }
 
@@ -279,7 +279,7 @@ namespace Sapper5
                         leftdown(p);
                         down(p);
                         swit();
-                        
+
                      }
                      else
                      {
@@ -301,38 +301,52 @@ namespace Sapper5
          }
          else if (e.Button == MouseButtons.Right)  //Pravo
          {
+            bool test1 = false, test2 = false;
             for (int i = 0; i < field; i++)
             {
                pb2 = sender as PictureBox;
                Point po2 = new Point((int)b[i], (int)a[i]);
                if (po2 == pb2.Location)
                {
-                  if((int)flg[i] % 2 == 0) // stavim flag
+                  if ((int)flg[i] % 2 == 0 && Convert.ToInt32(label2.Text) > 0) // stavim flag
                   {
-                     f[i] = false;
+                     test1 = true;
+                      f[i] = false;
                      pb2.BackgroundImage = Properties.Resources.flag;
-                     if((int)c[i] == 1)
+                     if ((int)c[i] == 1)
                      {
                         bmcount++;
+
                      }
+                     label2.Text = Convert.ToString(Convert.ToInt32(label2.Text) - 1);
                   }
-                  if((int)flg[i] % 2 == 1) // ubiraem flag
+                  if ((int)flg[i] % 2 == 1) // ubiraem flag
                   {
+                     test2 = true;
                      f[i] = true;
                      pb2.BackgroundImage = Properties.Resources._0;
                      if ((int)c[i] == 1)
                      {
                         bmcount--;
+
                      }
+                     label2.Text = Convert.ToString(Convert.ToInt32(label2.Text) + 1);
                   }
-                  flg[i] = flg[i] + 1;
+                  if (test1 == true || test2 == true)
+                  {
+                     flg[i] = flg[i] + 1;
+                  }
                   
+
                }
             }
-            
+
          }
 
       }
+
+      
+      
 
       public void leftup(int o)
       {
@@ -399,7 +413,7 @@ namespace Sapper5
             if ((int)c[t] == 1)
             {
                num++;
-               textBox1.Text = num.ToString();
+               label2.Text = num.ToString();
             }
          }
 
