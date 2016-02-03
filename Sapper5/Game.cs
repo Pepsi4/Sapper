@@ -17,7 +17,7 @@ namespace Sapper5
       ArrayList b = new ArrayList();   //x
       ArrayList c = new ArrayList();   // bomb
       ArrayList d = new ArrayList();   //pict box (bu)
-      ArrayList e = new ArrayList();   //
+      ArrayList e = new ArrayList();   // Pustue kletki
       bool[] f = new bool[36];
       int[] flg = new int[36];
       Point po = new Point();
@@ -34,6 +34,8 @@ namespace Sapper5
       bool rand4 = true;
       bool rand5 = true;
       bool rand6 = true;
+      bool gam = true;
+
 
       public void butt(bool test = false, int t = 0)
       {
@@ -184,13 +186,14 @@ namespace Sapper5
          }
          else
          {
+            gam = false;
             MessageBox.Show("U lose");
          }
       }
 
       private void button1_MouseDown(object sender, MouseEventArgs e)
       {
-         if (e.Button == MouseButtons.Left)  //levo
+         if (e.Button == MouseButtons.Left && gam == true)  //levo
          {
             bom = 0;
             pb = sender as PictureBox;
@@ -203,6 +206,7 @@ namespace Sapper5
                   if ((int)c[p] == 1) // NAZATIE NA BOMBU  & c - bombu, a - y, b -x;
                   {
                      MessageBox.Show("Game Over");
+                     gam = false;
                      for (int u = 0; u < field; u++)
                      {
                         if ((int)c[u] == 1) // POKAZ VSEH BOMB PRI NAZATII NA BOMBU
@@ -214,7 +218,7 @@ namespace Sapper5
                   }
                   else
                   {
-
+                     
                      if (p >= 6 && p % 6 == 0 && p < 30)
                      { //verh seredina
 
@@ -223,21 +227,28 @@ namespace Sapper5
                         left(p);
                         leftdown(p);
                         rightdown(p);
+                        
                         swit();
+                        swit2();
                      }
                      else if (p == 0)
                      { //levo verh krai
                         down(p);
                         right(p);
                         rightdown(p);
+                        
                         swit();
+                        swit2();
                      }
                      else if (p == 30) //prav verh
                      {
                         down(p);
                         left(p);
                         leftdown(p);
+                        
                         swit();
+                        swit2();
+
                      }
                      else if (p >= 1 && p <= 4) // lev seredina
                      {
@@ -246,21 +257,27 @@ namespace Sapper5
                         down(p);
                         rightup(p);
                         rightdown(p);
+                        
                         swit();
+                        swit2();
                      }
                      else if (p == 5) // lev niz
                      {
                         up(p);
                         right(p);
                         rightup(p);
+                        
                         swit();
+                        swit2();
                      }
                      else if (p == 35) //prav niz
                      {
                         left(p);
                         up(p);
                         leftup(p);
+                        
                         swit();
+                        swit2();
                      }
                      else if (p % 6 == 5 && p != 5 && p != 35) //niz seredina
                      {
@@ -269,7 +286,9 @@ namespace Sapper5
                         rightup(p);
                         leftup(p);
                         left(p);
+                        
                         swit();
+                        swit2();
                      }
                      else if (p <= 34 && p >= 31)
                      {
@@ -278,8 +297,9 @@ namespace Sapper5
                         up(p);
                         leftdown(p);
                         down(p);
+                        
                         swit();
-
+                        swit2();
                      }
                      else
                      {
@@ -291,15 +311,19 @@ namespace Sapper5
                         up(p);
                         leftdown(p);
                         down(p);
+                        
                         swit();
+                        swit2();
                      }
+                     
+
                   }
                   //MessageBox.Show(c[p].ToString() + "bomb");
                   //MessageBox.Show(p.ToString());
                }
             }
          }
-         else if (e.Button == MouseButtons.Right)  //Pravo
+         else if (e.Button == MouseButtons.Right && gam == true)  //Pravo
          {
             bool test1 = false, test2 = false;
             for (int i = 0; i < field; i++)
@@ -311,7 +335,7 @@ namespace Sapper5
                   if ((int)flg[i] % 2 == 0 && Convert.ToInt32(label2.Text) > 0) // stavim flag
                   {
                      test1 = true;
-                      f[i] = false;
+                     f[i] = false;
                      pb2.BackgroundImage = Properties.Resources.flag;
                      if ((int)c[i] == 1)
                      {
@@ -336,7 +360,7 @@ namespace Sapper5
                   {
                      flg[i] = flg[i] + 1;
                   }
-                  
+
 
                }
             }
@@ -345,8 +369,94 @@ namespace Sapper5
 
       }
 
-      
-      
+
+
+
+      public void check()
+      {
+
+         for (int i = 0; i < field; i++)
+         {
+            bom = 0;
+            if (i >= 6 && i % 6 == 0 && i < 30)
+            { //verh seredina
+
+               right(i);
+               down(i);
+               left(i);
+               leftdown(i);
+               rightdown(i);
+            }
+            else if (i == 0)
+            { //levo verh krai
+               down(i);
+               right(i);
+               rightdown(i);
+            }
+            else if (i == 30) //prav verh
+            {
+               down(i);
+               left(i);
+               leftdown(i);
+            }
+            else if (i >= 1 && i <= 4) // lev seredina
+            {
+               right(i);
+               up(i);
+               down(i);
+               rightup(i);
+               rightdown(i);
+            }
+            else if (i == 5) // lev niz
+            {
+               up(i);
+               right(i);
+               rightup(i);
+            }
+            else if (i == 35) //prav niz
+            {
+               left(i);
+               up(i);
+               leftup(i);
+            }
+            else if (i % 6 == 5 && i != 5 && i != 35) //niz seredina
+            {
+               right(i);
+               up(i);
+               rightup(i);
+               leftup(i);
+               left(i);
+            }
+            else if (i <= 34 && i >= 31)
+            {
+               left(i);
+               leftup(i);
+               up(i);
+               leftdown(i);
+               down(i);
+            }
+            else
+            {
+               left(i);
+               leftup(i);
+               right(i);
+               rightup(i);
+               rightdown(i);
+               up(i);
+               leftdown(i);
+               down(i);
+            }
+            e.Add(bom);
+            //MessageBox.Show(e[i].ToString());
+
+         }
+      }
+      int tim = 0;
+      private void timer1_Tick(object sender, EventArgs e)
+      {
+         tim++;
+         label4.Text = tim.ToString();
+      }
 
       public void leftup(int o)
       {
@@ -390,6 +500,23 @@ namespace Sapper5
                break;
          }
       } //Tam znacheni9 bg i test na "bom"
+
+      public void swit2() //pokaz vseh pustuh kletok
+      {
+         check();
+         for (int t = 0; t < field; t++)
+         {
+            if ((int)c[t] != 1 && (int)e[t] == 0)
+            {
+
+               PictureBox pe2 = (PictureBox)d[t];
+               pe2.Location = new Point((int)b[t], (int)a[t]);
+               pe2.BackgroundImage = Properties.Resources._null;
+
+            }
+
+         }
+      }
 
       public void load()
       {
