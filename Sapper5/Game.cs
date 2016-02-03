@@ -23,6 +23,8 @@ namespace Sapper5
       Point po = new Point();
       PictureBox pb = new PictureBox();
       PictureBox pb2 = new PictureBox();
+      bool test1 = false, test2 = false; // Для проверки, стоит ли там флаг
+
       public game()
       {
          InitializeComponent();
@@ -193,15 +195,25 @@ namespace Sapper5
 
       private void button1_MouseDown(object sender, MouseEventArgs e)
       {
+         
+
          if (e.Button == MouseButtons.Left && gam == true)  //levo
          {
             bom = 0;
             pb = sender as PictureBox;
+            
+
             for (int p = 0; p < field; p++)
             {
+               test2 = false;
+               //test1 = false;
                po = new Point((int)b[p], (int)a[p]);
+               
                if (pb.Location == po)
                {
+
+                
+
 
                   if ((int)c[p] == 1) // NAZATIE NA BOMBU  & c - bombu, a - y, b -x;
                   {
@@ -218,7 +230,7 @@ namespace Sapper5
                   }
                   else
                   {
-                     
+
                      if (p >= 6 && p % 6 == 0 && p < 30)
                      { //verh seredina
 
@@ -227,28 +239,30 @@ namespace Sapper5
                         left(p);
                         leftdown(p);
                         rightdown(p);
-                        
+
                         swit();
                         swit2();
+                        swit3(p);
                      }
                      else if (p == 0)
                      { //levo verh krai
                         down(p);
                         right(p);
                         rightdown(p);
-                        
+
                         swit();
                         swit2();
+                        swit3(p);
                      }
                      else if (p == 30) //prav verh
                      {
                         down(p);
                         left(p);
                         leftdown(p);
-                        
+
                         swit();
                         swit2();
-
+                        swit3(p);
                      }
                      else if (p >= 1 && p <= 4) // lev seredina
                      {
@@ -257,27 +271,30 @@ namespace Sapper5
                         down(p);
                         rightup(p);
                         rightdown(p);
-                        
+
                         swit();
                         swit2();
+                        swit3(p);
                      }
                      else if (p == 5) // lev niz
                      {
                         up(p);
                         right(p);
                         rightup(p);
-                        
+
                         swit();
                         swit2();
+                        swit3(p);
                      }
                      else if (p == 35) //prav niz
                      {
                         left(p);
                         up(p);
                         leftup(p);
-                        
+
                         swit();
                         swit2();
+                        swit3(p);
                      }
                      else if (p % 6 == 5 && p != 5 && p != 35) //niz seredina
                      {
@@ -286,9 +303,10 @@ namespace Sapper5
                         rightup(p);
                         leftup(p);
                         left(p);
-                        
+
                         swit();
                         swit2();
+                        swit3(p);
                      }
                      else if (p <= 34 && p >= 31)
                      {
@@ -297,9 +315,10 @@ namespace Sapper5
                         up(p);
                         leftdown(p);
                         down(p);
-                        
+
                         swit();
                         swit2();
+                        swit3(p);
                      }
                      else
                      {
@@ -311,12 +330,13 @@ namespace Sapper5
                         up(p);
                         leftdown(p);
                         down(p);
-                        
+
                         swit();
                         swit2();
+                        swit3(p);
                      }
-                     
 
+                     
                   }
                   //MessageBox.Show(c[p].ToString() + "bomb");
                   //MessageBox.Show(p.ToString());
@@ -325,7 +345,9 @@ namespace Sapper5
          }
          else if (e.Button == MouseButtons.Right && gam == true)  //Pravo
          {
-            bool test1 = false, test2 = false;
+
+            test1 = false;
+            test2 = false;
             for (int i = 0; i < field; i++)
             {
                pb2 = sender as PictureBox;
@@ -335,11 +357,11 @@ namespace Sapper5
                   if ((int)flg[i] % 2 == 0 && Convert.ToInt32(label2.Text) > 0) // stavim flag
                   {
                      test1 = true;
-                     f[i] = false;
+                     f[i] = false; // stavim flag
                      pb2.BackgroundImage = Properties.Resources.flag;
                      if ((int)c[i] == 1)
                      {
-                        bmcount++;
+                        bmcount++; // для кнопки "check"
 
                      }
                      label2.Text = Convert.ToString(Convert.ToInt32(label2.Text) - 1);
@@ -347,11 +369,11 @@ namespace Sapper5
                   if ((int)flg[i] % 2 == 1) // ubiraem flag
                   {
                      test2 = true;
-                     f[i] = true;
+                     f[i] = true; //ubiraem
                      pb2.BackgroundImage = Properties.Resources._0;
                      if ((int)c[i] == 1)
                      {
-                        bmcount--;
+                        bmcount--;  // для кнопки "check"
 
                      }
                      label2.Text = Convert.ToString(Convert.ToInt32(label2.Text) + 1);
@@ -515,6 +537,18 @@ namespace Sapper5
 
             }
 
+         }
+      }
+
+      public void swit3(int o) // Pokaz flagov 
+      {
+         for (int i = 0; i < field; i++)
+         {
+            if (flg[i] == 1)
+            {
+               PictureBox pe = (PictureBox)d[i];
+               pe.BackgroundImage = Properties.Resources.flag;
+            }
          }
       }
 
