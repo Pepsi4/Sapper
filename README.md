@@ -1,4 +1,6 @@
-#Sapper: the game
+*Sapper: the game*
+
+![alt text](https://user-images.githubusercontent.com/10260469/28691723-97b982a4-7326-11e7-92a2-92404bb03702.JPG)
 
 **Game info:**
 
